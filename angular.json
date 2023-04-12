@@ -28,8 +28,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
+              "src/styles.css" 
+
+            ],  
             "scripts": []
           },
           "configurations": {
@@ -124,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "digencyProjectFrontend"
+  "defaultProject": "digencyProjectFrontend",
+  "cli": {
+    "analytics": false
+  }
 }
