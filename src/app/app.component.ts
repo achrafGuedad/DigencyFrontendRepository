@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Personne } from './models/Personne';
-import * as moment from 'moment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -81,7 +80,7 @@ onSubmitForm() {
     subscribe(
 
       (data:any)=> { console.log(data); this.isValid=true;
-      this.idPersonne=data;},
+      this.idPersonne=data; alert ('données bien enregistrées');},
       (error)=>{console.log(error);}
     )
   
@@ -90,17 +89,23 @@ onSubmitForm() {
 
 chargerPdf(){
 
-  console.log(typeof this.idPersonne)
+  console.log(typeof Number(this.idPersonne));
 
   
-  this.http.get('http://localhost:9092/pdf/generate/'+Number(this.idPersonne)).
+  this.http.get('http://localhost:9092/pdf/generate/'+Number(this.idPersonne),{responseType: 'arraybuffer'}).
 
     subscribe(
 
-      (data)=> {  this.isValid=true;
+      (data:ArrayBuffer)=> {  this.isValid=true; 
+        const blob = new Blob([data], { type: 'application/pdf' });
+ 
+        const fileUrl = URL.createObjectURL(blob);
+        window.open(fileUrl);
                 },
-      (error)=>{console.log(error);}
-    )
+      (error)=>{console.log(error); console.log("what is wrong whit you");}
+    );
+
+
 
 }
 
